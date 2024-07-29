@@ -6,13 +6,17 @@ const ViewProjects = () => {
     fetchProjects();
   }, []);
   const fetchProjects = () => {
-    axios.get("http://localhost:3000/api/project/").then((res) => {
-      setProject(res.data);
-    });
+    axios
+      .get("https://portfolio-admin-server.onrender.com/api/project/")
+      .then((res) => {
+        setProject(res.data);
+      });
   };
   const deleteProject = (projectId) => {
     axios
-      .delete(`http://localhost:3000/api/project/${projectId}`)
+      .delete(
+        `https://portfolio-admin-server.onrender.com/api/project/${projectId}`
+      )
       .then((res) => {
         alert(res.data.message);
         fetchProjects();

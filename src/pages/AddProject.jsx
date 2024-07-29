@@ -32,7 +32,10 @@ const AddProject = () => {
   const handleSubmit = () => {
     console.log(project);
     const result = axios
-      .post("http://localhost:3000/api/project/add", project)
+      .post(
+        "https://portfolio-admin-server.onrender.com//api/project/add",
+        project
+      )
       .then(() => {
         alert("Project Added Successfully");
         titleref.current.value = "";
