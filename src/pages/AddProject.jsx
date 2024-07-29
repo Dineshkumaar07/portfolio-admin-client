@@ -9,8 +9,9 @@ const AddProject = () => {
     desc: "",
     image: "",
     link: "",
-    frontendMentor: false,
+    frontendMentor: null,
   });
+  const [adding, setAdding] = useState(false)
   const reset = () => {
     setProject({
       title: "",
@@ -30,13 +31,15 @@ const AddProject = () => {
   const divStyle = "flex gap-9 items-center";
   const inputStyle = "border-2 focus:outline-none px-2 py-1 rounded-md w-1/2";
   const handleSubmit = () => {
+    setAdding(true)
     console.log(project);
     const result = axios
       .post(
-        "https://portfolio-admin-server.onrender.com//api/project/add",
+        "https://portfolio-admin-server.onrender.com/api/project/add",
         project
       )
       .then(() => {
+        setAdding(false)
         alert("Project Added Successfully");
         titleref.current.value = "";
         descref.current.value = "";
@@ -44,6 +47,7 @@ const AddProject = () => {
         linkref.current.value = "";
         if (yesRef.current) yesRef.current.checked = false;
         if (noRef.current) noRef.current.checked = false;
+        
       })
       .catch(() => {
         alert("Failed");
@@ -134,15 +138,22 @@ const AddProject = () => {
             </label>
           </div>
           <div className="flex gap-9 justify-center">
-            <button
-              className="bg-slate-500 px-4 py-2 rounded-md text-white"
-              type="button"
-              onClick={() => {
-                handleSubmit();
-              }}
-            >
-              Add
-            </button>
+            {!adding && (
+              <button
+                className="bg-slate-500 px-4 py-2 rounded-md text-white"
+                type="button"
+                onClick={() => {
+                  handleSubmit();
+                }}
+              >
+                Add
+              </button>
+            )}
+            {adding && (
+              <div className="bg-slate-500 px-4 py-2 rounded-md text-white">
+                Adding Project!!
+              </div>
+            )}
             <button
               className="bg-slate-500 px-4 py-2 rounded-md text-white"
               onClick={() => {
